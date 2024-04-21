@@ -1,8 +1,14 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assests/images/logo.jpg";
 
-const Header = ({ startTimer, score }) => {
-  const [timer, setTimer] = useState(60);
+const Header = ({
+  startTimer,
+  score,
+  setIsFinished,
+  isFinished,
+  setIsStart,
+}) => {
+  const [timer, setTimer] = useState(40);
 
   useEffect(() => {
     let intervalId;
@@ -14,6 +20,8 @@ const Header = ({ startTimer, score }) => {
             return prevTimer - 1;
           } else {
             clearInterval(intervalId);
+            setIsFinished(true);
+            setIsStart(false);
             return 0;
           }
         });
@@ -35,7 +43,7 @@ const Header = ({ startTimer, score }) => {
       <div>
         <img src={logo} alt="" width={120} />
       </div>
-      {startTimer && (
+      {startTimer && !isFinished && (
         <div className="flex gap-4 justify-center items-center">
           <div className="text-lg font-bold bg-gray-200 py-2 px-4 rounded shadow-xl">
             Score: {score}
