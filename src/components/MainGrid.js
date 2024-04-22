@@ -3,7 +3,7 @@ import backImage from "../assests/images/card-back2.png";
 import cardImages from "./AllCards";
 import gameOver from "../assests/images/game.gif";
 import cardFlipSound from "../assests/audio/pageTurn.mp3";
-import matched from "../assests/audio/matched.mp3";
+import matched from "../assests/audio/matched2.mp3";
 import cardImg from "../assests/images/card.jpg";
 
 const MainGrid = ({
@@ -22,7 +22,8 @@ const MainGrid = ({
   const [match] = useState(new Audio(matched));
 
   let matchedPairs = [];
-  // Function to shuffle the array
+  const [alreadyMatchedIds, setAlreadyMatchedIds] = useState([]);
+
   const shuffleArray = (array) => {
     console.log("suffle----", array);
     const shuffledArray = [...array];
@@ -40,9 +41,10 @@ const MainGrid = ({
     setCards(shuffleArray(cardImages));
   }, []);
 
-  // Handle card click event
   const handleCardClick = (clickedCardId) => {
-    if (isWaiting) return;
+    if (alreadyMatchedIds.includes(clickedCardId) || isWaiting) {
+      return;
+    }
 
     const updatedCards = cards.map((card) => {
       if (card.id === clickedCardId && !card.isFlipped) {
@@ -65,6 +67,11 @@ const MainGrid = ({
           flippedPair[0].name === flippedPair[1].name &&
           flippedPair[0].id !== flippedPair[1].id
         ) {
+          setAlreadyMatchedIds((prevIds) => [
+            ...prevIds,
+            flippedPair[0].id,
+            flippedPair[1].id,
+          ]);
           const updatedCardsAfterMatch = updatedCards.map((card) =>
             flippedPair.some((flipped) => flipped.id === card.id)
               ? { ...card, isFlipped: true }
@@ -132,9 +139,11 @@ const MainGrid = ({
     >
       {isFinished ? (
         <div className="flex-col justify-center items-center text-center text-black font-bold">
-          <img src={gameOver} alt="gameover" width={200} />
+          <div>
+            <img src={gameOver} alt="gameover" width={200} />
+          </div>
           <div className="mt-6 font-bold text-lg">
-            Well Done! You Score {myScore}
+            {myScore < 20 ? "Oops!" : "Well Done!"} You Score {myScore}
           </div>
           <div className="font-bold text-md">in {40 - timer} seconds</div>
           <button className="button-85 mt-4" onClick={handleRestart}>
@@ -165,7 +174,7 @@ const MainGrid = ({
             <img src={cardImg} alt="cards" width={250} />
           </div>
           <p className="mb-8 font-semibold text-lg text-black font-bold">
-            You will have one minute to match all the pairs. Each matched pair
+            You will have 40 seconds to match all the pairs. Each matched pair
             will give you 10 points
           </p>
           <button className="button-85" onClick={handleStart}>

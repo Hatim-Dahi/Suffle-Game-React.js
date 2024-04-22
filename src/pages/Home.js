@@ -10,7 +10,7 @@ const Home = () => {
   const [isFinished, setIsFinished] = useState(false);
   const [congratsAudio] = useState(new Audio(congratsSound));
   const [lowScore] = useState(new Audio(loose));
-  const [timer, setTimer] = useState(7);
+  const [timer, setTimer] = useState(40);
   const [totalTimeTaken, setTotalTimeTaken] = useState(0);
   console.log("score:", score, "isstart", isStart, "isfinished", isFinished);
   useEffect(() => {

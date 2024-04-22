@@ -6,6 +6,7 @@
   text-align: center;
 }
 body {
+  box-sizing: border-box;
   background: url("../src/assests/images/bg2.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -394,4 +395,35 @@ body {
 
 .button-82-pushable:focus:not(:focus-visible) {
   outline: none;
+}
+
+/* Define keyframes for subtle vibration effect */
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+  10%,
+  90% {
+    transform: translate(-0.5px, 0);
+  }
+  20%,
+  80% {
+    transform: translate(0.5px, 0);
+  }
+  30%,
+  70% {
+    transform: translate(-1px, 0);
+  }
+  40%,
+  60% {
+    transform: translate(1px, 0);
+  }
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+/* Styles for the flipped class */
+.flipped {
+  animation: shake 0.3s ease-in-out; /* Apply gentle shake animation */
 }

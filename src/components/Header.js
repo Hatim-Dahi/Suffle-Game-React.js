@@ -53,7 +53,7 @@ const Header = ({
 
           <div
             className={`button-83 ${
-              timer < 5 ? "bg-red-500 text-white" : "bg-gray-200"
+              timer < 5 ? "bg-red-500!important text-white" : "bg-gray-200"
             }`}
           >
             {formatTime(timer)}
