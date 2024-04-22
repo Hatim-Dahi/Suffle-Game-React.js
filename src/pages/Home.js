@@ -12,7 +12,6 @@ const Home = () => {
   const [lowScore] = useState(new Audio(loose));
   const [timer, setTimer] = useState(40);
   const [totalTimeTaken, setTotalTimeTaken] = useState(0);
-  console.log("score:", score, "isstart", isStart, "isfinished", isFinished);
   useEffect(() => {
     if (!isFinished) {
       setTotalTimeTaken(timer);
@@ -23,7 +22,6 @@ const Home = () => {
     if (isFinished) {
       setTimer(0);
       if (score > 10) {
-        console.log("greater thabn das");
         congratsAudio.currentTime = 0;
         congratsAudio.play();
       } else {

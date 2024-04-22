@@ -25,7 +25,6 @@ const MainGrid = ({
   const [alreadyMatchedIds, setAlreadyMatchedIds] = useState([]);
 
   const shuffleArray = (array) => {
-    console.log("suffle----", array);
     const shuffledArray = [...array];
     for (let i = shuffledArray.length - 1; i > 0; i--) {
       const j = Math.floor(Math.random() * (i + 1));
@@ -95,8 +94,6 @@ const MainGrid = ({
               : card
           );
           setCards(newCards);
-          console.log("new cards:", newCards);
-          console.log("matched", matchedPairs);
           setFlippedCards([]);
           setIsWaiting(false);
         }, 500);
@@ -116,9 +113,7 @@ const MainGrid = ({
     window.location.reload();
   };
 
-  useEffect(() => {
-    console.log("chala ye");
-  }, [matchedPairs]);
+  useEffect(() => {}, [matchedPairs]);
 
   useEffect(() => {
     if (myScore === 90 && !isFinished) {
