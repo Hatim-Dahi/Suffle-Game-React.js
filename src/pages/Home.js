@@ -7,6 +7,7 @@ const Home = () => {
   const [isStart, setIsStart] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
 
+  console.log("score:", score, "isstart", isStart, "isfinished", isFinished);
   return (
     <div className=" bg-slate-300">
       <Header
@@ -21,6 +22,7 @@ const Home = () => {
           setScore={setScore}
           setIsStart={setIsStart}
           isFinished={isFinished}
+          setIsFinished={setIsFinished}
         />
       </div>
     </div>

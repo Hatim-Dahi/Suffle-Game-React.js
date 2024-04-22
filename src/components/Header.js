@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assests/images/logo.jpg";
-
+import { GiThreePointedShuriken } from "react-icons/gi";
 const Header = ({
   startTimer,
   score,
@@ -40,13 +40,13 @@ const Header = ({
 
   return (
     <div className="flex justify-between px-10 pt-4 items-center">
-      <div>
-        <img src={logo} alt="" width={120} />
+      <div className="lg:w-32">
+        <img src={logo} alt="" />
       </div>
       {startTimer && !isFinished && (
-        <div className="flex gap-4 justify-center items-center">
-          <div className="text-lg font-bold bg-gray-200 py-2 px-4 rounded shadow-xl">
-            Score: {score}
+        <div className="flex gap-4 justify-center items-center ml-4">
+          <div className="text-lg font-bold bg-gray-200 py-2 px-4 rounded shadow-xl flex justify-center items-center">
+            <GiThreePointedShuriken className="mt-[-3px] mr-2" /> {score}
           </div>
 
           <div className="text-xl font-bold text-gray-800 bg-gray-200 py-2 px-4 rounded shadow-xl">

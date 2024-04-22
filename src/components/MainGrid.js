@@ -3,12 +3,11 @@ import backImage from "../assests/images/card-back.jpg";
 import cardImages from "./AllCards";
 import gameOver from "../assests/images/game.gif";
 
-const MainGrid = ({ setIsStart, setScore, isFinished }) => {
+const MainGrid = ({ setIsStart, setScore, isFinished, setIsFinished }) => {
   const [cards, setCards] = useState([]);
   const [start, setStart] = useState(false);
   const [myScore, setMyScore] = useState(0);
   const [flippedCards, setFlippedCards] = useState([]);
-  const [finished, setFinished] = useState(isFinished);
   let matchedPairs = [];
   // Function to shuffle the array
   const shuffleArray = (array) => {
@@ -79,9 +78,11 @@ const MainGrid = ({ setIsStart, setScore, isFinished }) => {
   };
 
   const handleStart = () => {
-    setFinished(false);
     setIsStart(true);
     setStart(true);
+  };
+  const handleRestart = () => {
+    window.location.reload();
   };
 
   useEffect(() => {
@@ -89,14 +90,14 @@ const MainGrid = ({ setIsStart, setScore, isFinished }) => {
   }, [matchedPairs]);
 
   return (
-    <div className="w-[70%] h-[88%] bg-neutral-50 shadow-md flex flex-wrap justify-center items-center mt-[-50px] rounded-md">
+    <div className=" w-[90%] lg:w-[70%]  h-[98%]  lg:h-[88%] bg-neutral-50 shadow-md flex flex-wrap justify-center items-center mt-4 mb-4 lg:mt-[-50px] rounded-md">
       {isFinished ? (
         <div className="flex-col justify-center items-center text-center">
           <img src={gameOver} alt="gameover" width={200} className="ml-4" />
           <div className="mt-4 font-bold text-lg">
             Well Done! You Score {myScore}/90
           </div>
-          <button className="button-89 mt-4" onClick={handleStart}>
+          <button className="button-89 mt-4" onClick={handleRestart}>
             Restart
           </button>
         </div>
@@ -110,7 +111,7 @@ const MainGrid = ({ setIsStart, setScore, isFinished }) => {
             onClick={() => handleCardClick(card.id)}
           >
             <img
-              className="w-40 h-48"
+              className="w-24 h-28  lg:w-40 lg:h-48"
               src={card.isFlipped ? card.image : backImage}
               alt={card.isFlipped ? `Card ${card.id}` : "Card Back"}
             />
@@ -118,7 +119,7 @@ const MainGrid = ({ setIsStart, setScore, isFinished }) => {
         ))
       ) : (
         <div>
-          <p className="w-96 mb-4 font-semibold text-lg">
+          <p className="w-56 lg:w-96 mb-4 font-semibold text-lg">
             You will have one minute to match all the pairs. Each matched pair
             will give you 10 points.
           </p>
