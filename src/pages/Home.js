@@ -1,21 +1,47 @@
-import React, { memo, useState } from "react";
+import React, { memo, useEffect, useState } from "react";
 import MainGrid from "../components/MainGrid";
 import Header from "../components/Header";
+import congratsSound from "../assests/audio/congrats.mp3";
+import loose from "../assests/audio/loose.mp3";
 
 const Home = () => {
   const [score, setScore] = useState(0);
   const [isStart, setIsStart] = useState(false);
   const [isFinished, setIsFinished] = useState(false);
-
+  const [congratsAudio] = useState(new Audio(congratsSound));
+  const [lowScore] = useState(new Audio(loose));
+  const [timer, setTimer] = useState(7);
+  const [totalTimeTaken, setTotalTimeTaken] = useState(0);
   console.log("score:", score, "isstart", isStart, "isfinished", isFinished);
+  useEffect(() => {
+    if (!isFinished) {
+      setTotalTimeTaken(timer);
+    }
+  }, [timer]);
+
+  useEffect(() => {
+    if (isFinished) {
+      setTimer(0);
+      if (score > 10) {
+        console.log("greater thabn das");
+        congratsAudio.currentTime = 0;
+        congratsAudio.play();
+      } else {
+        lowScore.currentTime = 0;
+        lowScore.play();
+      }
+    }
+  }, [isFinished]);
   return (
-    <div className=" bg-slate-300">
+    <div>
       <Header
         startTimer={isStart}
         score={score}
         setIsFinished={setIsFinished}
         isFinished={isFinished}
         setIsStart={setIsStart}
+        timer={timer}
+        setTimer={setTimer}
       />
       <div className="w-[100%] h-[96vh] flex justify-center items-center text-center">
         <MainGrid
@@ -23,6 +49,7 @@ const Home = () => {
           setIsStart={setIsStart}
           isFinished={isFinished}
           setIsFinished={setIsFinished}
+          timer={totalTimeTaken}
         />
       </div>
     </div>

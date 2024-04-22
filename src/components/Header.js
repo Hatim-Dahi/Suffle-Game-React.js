@@ -1,15 +1,16 @@
 import React, { useState, useEffect } from "react";
 import logo from "../assests/images/logo.jpg";
 import { GiThreePointedShuriken } from "react-icons/gi";
+
 const Header = ({
   startTimer,
   score,
   setIsFinished,
   isFinished,
   setIsStart,
+  timer,
+  setTimer,
 }) => {
-  const [timer, setTimer] = useState(40);
-
   useEffect(() => {
     let intervalId;
 
@@ -21,6 +22,7 @@ const Header = ({
           } else {
             clearInterval(intervalId);
             setIsFinished(true);
+
             setIsStart(false);
             return 0;
           }
@@ -45,11 +47,15 @@ const Header = ({
       </div>
       {startTimer && !isFinished && (
         <div className="flex gap-4 justify-center items-center ml-4">
-          <div className="text-lg font-bold bg-gray-200 py-2 px-4 rounded shadow-xl flex justify-center items-center">
-            <GiThreePointedShuriken className="mt-[-3px] mr-2" /> {score}
-          </div>
+          <button className="text-lg font-bold bg-gray-200 py-2 px-4 rounded shadow-xl flex justify-center items-center button-83">
+            <GiThreePointedShuriken className="mr-[-10px]" /> {score}
+          </button>
 
-          <div className="text-xl font-bold text-gray-800 bg-gray-200 py-2 px-4 rounded shadow-xl">
+          <div
+            className={`button-83 ${
+              timer < 5 ? "bg-red-500 text-white" : "bg-gray-200"
+            }`}
+          >
             {formatTime(timer)}
           </div>
         </div>
